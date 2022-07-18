@@ -20,9 +20,9 @@
     <description>guli-parent</description>
     <properties>
         <java.version>1.8</java.version>
-        <cloud.version>Hoxton.RELEASE</cloud.version>
-        <alibaba.version>2.2.0.RELEASE</alibaba.version>
-        <mybatis-plus.version>3.3.1</mybatis-plus.version>
+        <cloud.version>Hoxton.SR9</cloud.version>
+        <alibaba.version>2.2.6.RELEASE</alibaba.version>
+        <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <velocity.version>2.0</velocity.version>
         <swagger.version>2.7.0</swagger.version>
         <aliyun.oss.version>3.1.0</aliyun.oss.version>
@@ -82,7 +82,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <version>3.4.0</version>
             </dependency>
 
             <!-- velocity 模板引擎, Mybatis Plus 代码生成器需要 -->
@@ -165,11 +165,12 @@
                 <artifactId>aliyun-java-sdk-vod</artifactId>
                 <version>${aliyun-java-sdk-vod.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.aliyun</groupId>
-                <artifactId>aliyun-sdk-vod-upload</artifactId>
-                <version>${aliyun-sdk-vod-upload.version}</version>
-            </dependency>
+            <!--         没有开源的jar包 不能通过中央仓库下载   -->
+            <!--            <dependency>-->
+            <!--                <groupId>com.aliyun</groupId>-->
+            <!--                <artifactId>aliyun-sdk-vod-upload</artifactId>-->
+            <!--                <version>${aliyun-sdk-vod-upload.version}</version>-->
+            <!--            </dependency>-->
 
             <!--json-->
             <dependency>
@@ -205,8 +206,8 @@
                 <artifactId>xmlbeans</artifactId>
                 <version>${apache.xmlbeans.version}</version>
             </dependency>
-
         </dependencies>
+
     </dependencyManagement>
     <build>
         <plugins>

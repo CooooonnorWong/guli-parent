@@ -4,6 +4,7 @@ import com.atguigu.guli.service.base.model.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,10 +25,10 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("edu_teacher")
-@ApiModel(value="Teacher对象", description="讲师")
+@ApiModel(value = "Teacher对象", description = "讲师")
 public class Teacher extends BaseEntity {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "讲师姓名")
     private String name;
@@ -47,6 +48,11 @@ public class Teacher extends BaseEntity {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
+    /**
+     * timezone:指定时区  pattern：指定格式，yyyy MM dd HH mm ss
+     * jackson提供的处理时间日期格式的注解
+     */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "入驻时间")
     private Date joinDate;
 
