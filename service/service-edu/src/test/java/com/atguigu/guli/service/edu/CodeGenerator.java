@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 /**
- * @author:Connor
- * @date:2022/7/18
+ * @author Connor
+ * @date 2022/7/18
  */
 public class CodeGenerator {
     /**

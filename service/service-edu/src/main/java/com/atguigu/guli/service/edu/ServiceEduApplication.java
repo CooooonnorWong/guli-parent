@@ -5,11 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * @author:Connor
- * @date:2022/7/18
+ * @author Connor
+ * @date 2022/7/18
  */
 @SpringBootApplication
-@ComponentScan("com.atguigu.guli")
+//@EnableSwagger2
+@ComponentScan("com.atguigu.guli.service")
 public class ServiceEduApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServiceEduApplication.class, args);
