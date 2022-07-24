@@ -1,11 +1,11 @@
 package com.atguigu.guli.service.base.handler;
 
+import com.atguigu.guli.service.base.exception.GuliException;
 import com.atguigu.guli.service.base.result.R;
-import com.atguigu.guli.service.base.result.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -21,9 +21,11 @@ public class GlobalExceptionHandler {
         return R.fail();
     }
 
-    @ExceptionHandler(BadSqlGrammarException.class)
-    public R exceptionHandler(BadSqlGrammarException e) {
+
+    @ExceptionHandler(GuliException.class)
+    @ResponseBody
+    public R error(GuliException e) {
         log.error(ExceptionUtils.getStackTrace(e));
-        return R.setResult(ResultCodeEnum.BAD_SQL_GRAMMAR);
+        return R.fail().message(e.getMsg()).code(e.getCode());
     }
 }

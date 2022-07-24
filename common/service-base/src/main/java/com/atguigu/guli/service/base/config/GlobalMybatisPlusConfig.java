@@ -6,12 +6,14 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author Connor
  * @date 2022/7/18
  */
 @SpringBootConfiguration
+@EnableTransactionManagement
 @MapperScan("com.atguigu.guli.service.*.mapper")
 public class GlobalMybatisPlusConfig {
     /**

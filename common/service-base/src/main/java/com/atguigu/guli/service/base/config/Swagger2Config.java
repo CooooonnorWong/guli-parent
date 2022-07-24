@@ -20,7 +20,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Swagger2Config {
 
     @Bean
-    public Docket webApiConfig(){
+    public Docket webApiConfig() {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("webApi")
@@ -33,7 +33,7 @@ public class Swagger2Config {
     }
 
     @Bean
-    public Docket adminApiConfig(){
+    public Docket adminApiConfig() {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("adminApi")
@@ -45,7 +45,20 @@ public class Swagger2Config {
 
     }
 
-    private ApiInfo webApiInfo(){
+    @Bean
+    public Docket ossApiConfig() {
+
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("ossApi")
+                .apiInfo(adminApiInfo())
+                .select()
+                //只显示oss路径下的页面
+                .paths(Predicates.and(PathSelectors.regex("/admin/.*")))
+                .build();
+
+    }
+
+    private ApiInfo webApiInfo() {
 
         return new ApiInfoBuilder()
                 .title("网站-API文档")
@@ -55,7 +68,7 @@ public class Swagger2Config {
                 .build();
     }
 
-    private ApiInfo adminApiInfo(){
+    private ApiInfo adminApiInfo() {
 
         return new ApiInfoBuilder()
                 .title("后台管理系统-API文档")
@@ -64,4 +77,15 @@ public class Swagger2Config {
                 .contact(new Contact("Atguigu", "http://atguigu.com", "xg114747411@126.com"))
                 .build();
     }
+
+    private ApiInfo ossApiInfo() {
+
+        return new ApiInfoBuilder()
+                .title("后台管理系统-API文档")
+                .description("本文档描述了后台管理系统微服务接口定义")
+                .version("1.0")
+                .contact(new Contact("Atguigu", "http://atguigu.com", "xg114747411@126.com"))
+                .build();
+    }
+
 }
