@@ -69,9 +69,10 @@ public class OssServiceImpl implements OssService {
     @Override
     public void delete(String path, String module) {
         // 创建OSSClient实例。
-        OSS ossClient = new OSSClientBuilder().build(ossProperties.getEndpoint(), ossProperties.getAccessKeyId(), ossProperties.getAccessKeySecret());
-        String objectName = path.substring(path.lastIndexOf(module));
+        OSS ossClient = null;
         try {
+            ossClient = new OSSClientBuilder().build(ossProperties.getEndpoint(), ossProperties.getAccessKeyId(), ossProperties.getAccessKeySecret());
+            String objectName = path.substring(path.lastIndexOf(module));
             // 删除文件或目录。如果要删除目录，目录必须为空。
             ossClient.deleteObject(ossProperties.getBucketName(), objectName);
         } catch (OSSException oe) {
@@ -81,11 +82,15 @@ public class OssServiceImpl implements OssService {
             System.out.println("Error Code:" + oe.getErrorCode());
             System.out.println("Request ID:" + oe.getRequestId());
             System.out.println("Host ID:" + oe.getHostId());
+            throw new GuliException(ResultCodeEnum.FILE_DELETE_ERROR, oe);
         } catch (ClientException ce) {
             System.out.println("Caught an ClientException, which means the client encountered "
                     + "a serious internal problem while trying to communicate with OSS, "
                     + "such as not being able to access the network.");
             System.out.println("Error Message:" + ce.getMessage());
+            throw new GuliException(ResultCodeEnum.FILE_DELETE_ERROR, ce);
+        } catch (Exception e) {
+            throw new GuliException(ResultCodeEnum.FILE_DELETE_ERROR, e);
         } finally {
             if (ossClient != null) {
                 ossClient.shutdown();

@@ -1,9 +1,7 @@
 package com.atguigu.guli.service.edu.controller.admin;
 
 
-import com.atguigu.guli.service.base.exception.GuliException;
 import com.atguigu.guli.service.base.result.R;
-import com.atguigu.guli.service.base.result.ResultCodeEnum;
 import com.atguigu.guli.service.edu.entity.Teacher;
 import com.atguigu.guli.service.edu.entity.query.TeacherQuery;
 import com.atguigu.guli.service.edu.feign.OssClient;
@@ -90,14 +88,10 @@ public class AdminTeacherController {
     public R removeById(@ApiParam("讲师id") @PathVariable String id) {
         Teacher teacher = teacherService.getById(id);
         boolean remove = teacherService.removeById(id);
-        if (remove) {
-            if (!StringUtils.isEmpty(teacher.getAvatar()) && !"null".equals(teacher.getAvatar())) {
-                return ossClient.delete(teacher.getAvatar(), "avatar").message("删除成功");
-            }
-            return R.ok().message("删除成功");
-        } else {
-            throw new GuliException(ResultCodeEnum.FILE_DELETE_ERROR);
+        if (remove && !StringUtils.isEmpty(teacher.getAvatar()) && !"null".equals(teacher.getAvatar())) {
+            return ossClient.delete(teacher.getAvatar(), "avatar").message("删除成功");
         }
+        return R.ok().message("删除成功");
     }
 
     @DeleteMapping("/removeBatch")
@@ -106,10 +100,8 @@ public class AdminTeacherController {
         List<Teacher> teachers = teacherService.listByIds(ids);
         teachers.forEach(teacher -> {
             boolean remove = teacherService.removeById(teacher);
-            if (remove) {
+            if (remove && !StringUtils.isEmpty(teacher.getAvatar()) && !"null".equals(teacher.getAvatar())) {
                 ossClient.delete(teacher.getAvatar(), "avatar");
-            } else {
-                throw new GuliException(ResultCodeEnum.FILE_DELETE_ERROR);
             }
         });
         return R.ok();

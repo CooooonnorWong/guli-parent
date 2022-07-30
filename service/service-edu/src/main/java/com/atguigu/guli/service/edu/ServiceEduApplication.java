@@ -15,7 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2022/7/18
  */
 @SpringBootApplication
-@ComponentScan("com.atguigu.guli.service")
+@ComponentScan(basePackages = "com.atguigu.guli.service")
 @EnableDiscoveryClient
 @EnableFeignClients
 public class ServiceEduApplication {

@@ -2,4 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.guli.service.edu.mapper.CourseMapper">
 
+    <select id="selectCourseItemVoPage"
+            resultType="AdminCourseItemVo">
+        select t1.id,
+               t1.cover,
+               t1.title,
+               t1.lesson_num,
+               t1.buy_count,
+               t1.view_count,
+               t1.price,
+               t1.status,
+               t1.gmt_create,
+               t3.title subjectParentTitle,
+               t2.title subjectTitle,
+               t4.name  teacherName
+        from guli_edu.edu_course t1
+                 left join guli_edu.edu_subject t2
+                           on t1.subject_id = t2.id
+                 left join guli_edu.edu_subject t3
+                           on t2.parent_id = t3.id
+                 left join guli_edu.edu_teacher t4
+                           on t1.teacher_id = t4.id
+    </select>
+
+    <select id="selectCourseItemVo" resultType="AdminCourseItemVo">
+        select t1.id,
+               t1.cover,
+               t1.title,
+               t1.lesson_num,
+               t1.buy_count,
+               t1.view_count,
+               t1.price,
+               t1.status,
+               t1.gmt_create,
+               t3.title subjectParentTitle,
+               t2.title subjectTitle,
+               t4.name  teacherName
+        from guli_edu.edu_course t1
+                 left join guli_edu.edu_subject t2
+                           on t1.subject_id = t2.id
+                 left join guli_edu.edu_subject t3
+                           on t2.parent_id = t3.id
+                 left join guli_edu.edu_teacher t4
+                           on t1.teacher_id = t4.id
+            ${ew.customSqlSegment}
+    </select>
 </mapper>

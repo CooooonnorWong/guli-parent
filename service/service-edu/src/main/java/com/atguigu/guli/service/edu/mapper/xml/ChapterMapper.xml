@@ -2,4 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.guli.service.edu.mapper.ChapterMapper">
 
+    <resultMap id="chaptersAndVideos" autoMapping="true" type="Chapter">
+        <id column="id" property="id"/>
+        <collection property="videos" ofType="Video">
+            <id column="v_id" property="id"/>
+            <result column="v_chapter_id" property="chapterId"/>
+            <result column="v_title" property="title"/>
+            <result column="v_sort" property="sort"/>
+            <result column="v_free" property="free"/>
+            <result column="video_source_id" property="videoSourceId"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectChaptersAndVideos" resultMap="chaptersAndVideos">
+        select t1.id,
+               t1.`course_id`,
+               t1.`title`,
+               t1.`sort`,
+               t2.id           v_id,
+               t2.`chapter_id` v_chapter_id,
+               t2.`title`      v_title,
+               t2.`video_source_id`,
+               t2.`sort`       v_sort,
+               t2.`is_free`    v_free,
+               t2.video_source_id
+        from guli_edu.edu_chapter t1
+                 left join guli_edu.edu_video t2
+                           on t1.id = t2.chapter_id
+        where t1.course_id = #{courseId}
+        order by t1.sort, t2.sort
+    </select>
+
 </mapper>
