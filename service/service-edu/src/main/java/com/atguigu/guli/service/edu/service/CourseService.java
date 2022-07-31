@@ -1,10 +1,14 @@
 package com.atguigu.guli.service.edu.service;
 
 import com.atguigu.guli.service.edu.entity.Course;
+import com.atguigu.guli.service.edu.entity.query.ApiCourseQuery;
 import com.atguigu.guli.service.edu.entity.vo.AdminCourseInfoVo;
 import com.atguigu.guli.service.edu.entity.vo.AdminCourseItemVo;
+import com.atguigu.guli.service.edu.entity.vo.ApiCourseDetailVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -63,4 +67,19 @@ public interface CourseService extends IService<Course> {
      */
     AdminCourseItemVo getCoursePublishVo(String id);
 
+    /**
+     * 获取带搜索条件的课程列表
+     *
+     * @param apiCourseQuery
+     * @return
+     */
+    List<Course> getCourses(ApiCourseQuery apiCourseQuery);
+
+    /**
+     * 查询此id的课程展示信息
+     *
+     * @param id
+     * @return
+     */
+    ApiCourseDetailVo getCourseDetailVo(String id);
 }

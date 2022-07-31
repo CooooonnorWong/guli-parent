@@ -29,6 +29,6 @@ server:
 aliyun:
   oss:
     endpoint: "https://oss-cn-shanghai.aliyuncs.com"
-    accessKeyId: 
-    accessKeySecret: 
+    accessKeyId: LTAI5t7fcbMDKRUY8G7ARncS
+    accessKeySecret: pY0Xd9fYW5FwcWJoKTvAPJteqK9Kfm
     bucketName: xa-java-220310-guli-connor

@@ -2,6 +2,7 @@ package com.atguigu.guli.service.edu.mapper;
 
 import com.atguigu.guli.service.edu.entity.Course;
 import com.atguigu.guli.service.edu.entity.vo.AdminCourseItemVo;
+import com.atguigu.guli.service.edu.entity.vo.ApiCourseDetailVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -33,4 +34,12 @@ public interface CourseMapper extends BaseMapper<Course> {
      * @return
      */
     AdminCourseItemVo selectCourseItemVo(@Param(value = "ew") QueryWrapper<Course> queryWrapper);
+
+    /**
+     * 查询此id的课程信息
+     *
+     * @param id
+     * @return
+     */
+    ApiCourseDetailVo getCourseDetailVo(String id);
 }
