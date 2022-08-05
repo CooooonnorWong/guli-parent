@@ -29,7 +29,7 @@ import java.util.List;
 @RequestMapping("/admin/edu/teacher")
 @Api(tags = "讲师管理模块")
 @Slf4j
-@CrossOrigin
+
 public class AdminTeacherController {
     @Autowired
     private TeacherService teacherService;

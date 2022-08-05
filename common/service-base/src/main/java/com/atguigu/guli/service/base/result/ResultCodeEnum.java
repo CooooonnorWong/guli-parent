@@ -111,6 +111,10 @@ public enum ResultCodeEnum {
      */
     GATEWAY_ERROR(false, 26000, "服务不能访问"),
     /**
+     * 服务不能访问
+     */
+    SERVICE_ERROR(false, 26500, "服务错误"),
+    /**
      * 验证码错误
      */
     CODE_ERROR(false, 28000, "验证码错误"),
@@ -149,7 +153,11 @@ public enum ResultCodeEnum {
     /**
      * 短信发送过于频繁
      */
-    SMS_SEND_ERROR_BUSINESS_LIMIT_CONTROL(false, 28007, "短信发送过于频繁");
+    SMS_SEND_ERROR_BUSINESS_LIMIT_CONTROL(false, 28007, "短信发送过于频繁"),
+    /**
+     * 短信服务达到每日上限
+     */
+    SMS_SEND_ERROR_REACH_LIMIT_CONTROL(false, 28807, "短信服务达到每日上限");
 
     private Boolean success;
     private Integer code;

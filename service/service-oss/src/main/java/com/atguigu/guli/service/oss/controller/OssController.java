@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/admin/oss")
 @Slf4j
-@CrossOrigin
+
 @Api(tags = "文件管理模块")
 public class OssController {
     @Autowired

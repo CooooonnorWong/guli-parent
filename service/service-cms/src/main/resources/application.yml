@@ -23,11 +23,18 @@ spring:
     port: 6379
 #    password:
 #    database: 0
+    lettuce:
+      pool:
+        max-wait: -1  # redis连接不会中断 直到操作成功
+        max-idle: 8  # 空闲时最大维护的连接数
+        min-idle: 0  # 空闲时最小的连接数
+        max-active: 20 # 最大的连接数
+
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath*:com/atguigu/guli/service/edu/mapper/xml/*.xml
-  type-aliases-package: com.atguigu.guli.service.edu.entity
+  mapper-locations: classpath*:com/atguigu/guli/service/cms/mapper/xml/*.xml
+  type-aliases-package: com.atguigu.guli.service.cms.entity
 
 logging:
   level:

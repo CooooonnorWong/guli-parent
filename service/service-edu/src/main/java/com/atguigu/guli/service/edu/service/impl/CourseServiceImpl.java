@@ -1,5 +1,6 @@
 package com.atguigu.guli.service.edu.service.impl;
 
+import com.atguigu.guli.service.base.model.dto.CourseDto;
 import com.atguigu.guli.service.edu.entity.Course;
 import com.atguigu.guli.service.edu.entity.CourseDescription;
 import com.atguigu.guli.service.edu.entity.query.ApiCourseQuery;
@@ -9,12 +10,15 @@ import com.atguigu.guli.service.edu.entity.vo.ApiCourseDetailVo;
 import com.atguigu.guli.service.edu.mapper.CourseDescriptionMapper;
 import com.atguigu.guli.service.edu.mapper.CourseMapper;
 import com.atguigu.guli.service.edu.service.CourseService;
+import com.atguigu.guli.service.edu.service.TeacherService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,6 +37,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Resource
     private CourseDescriptionMapper courseDescriptionMapper;
+    @Autowired
+    private TeacherService teacherService;
 
     @Override
     public AdminCourseInfoVo getCourseInfo(String id) {
@@ -42,6 +48,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return adminCourseInfoVo;
     }
 
+    @CacheEvict(value = "ads", key = "'cache'")
     @Override
     public String saveCourseInfo(AdminCourseInfoVo adminCourseInfoVo) {
         Course course = new Course();
@@ -54,6 +61,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return course.getId();
     }
 
+    @CacheEvict(value = "ads", key = "'cache'")
     @Override
     public void updateCourseVoById(AdminCourseInfoVo vo, String id) {
         CourseDescription courseDescription = new CourseDescription();
@@ -74,6 +82,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return page;
     }
 
+    @CacheEvict(value = "ads", key = "'cache'")
     @Override
     public void removeAllById(String id) {
         baseMapper.deleteById(id);
@@ -123,13 +132,48 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 }
                 break;
         }
-        queryWrapper.eq(Course::getStatus,"Normal");
+        queryWrapper.eq(Course::getStatus, "Normal");
         return baseMapper.selectList(queryWrapper);
     }
 
     @Override
     public ApiCourseDetailVo getCourseDetailVo(String id) {
-        return baseMapper.getCourseDetailVo(id);
+        ApiCourseDetailVo courseDetailVo = baseMapper.getCourseDetailVo(id);
+        courseDetailVo.setViewCount(courseDetailVo.getViewCount() + 1);
+        Course course = new Course();
+        course.setId(courseDetailVo.getId());
+        course.setViewCount(courseDetailVo.getViewCount());
+        baseMapper.updateById(course);
+        return courseDetailVo;
+    }
+
+    @Override
+    public List<Course> getHotCourses() {
+        LambdaQueryWrapper<Course> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(Course::getId,
+                        Course::getTitle,
+                        Course::getPrice,
+                        Course::getBuyCount,
+                        Course::getViewCount,
+                        Course::getCover)
+                .orderByDesc(Course::getBuyCount)
+                .last("LIMIT 0,8");
+        return baseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public CourseDto getCourseDto(String courseId) {
+        Course course = baseMapper.selectOne(new LambdaQueryWrapper<Course>()
+                .select(Course::getTitle,
+                        Course::getCover,
+                        Course::getPrice,
+                        Course::getTeacherId)
+                .eq(Course::getId, courseId));
+        return new CourseDto(courseId,
+                course.getTitle(),
+                course.getCover(),
+                teacherService.getTeacherName(course.getTeacherId()),
+                course.getPrice());
     }
 
 }

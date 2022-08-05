@@ -30,7 +30,7 @@ import java.util.Date;
 @RequestMapping("/admin/edu/course")
 @Api(tags = "课程管理模块")
 @Slf4j
-@CrossOrigin
+
 public class AdminCourseController {
     @Autowired
     private CourseService courseService;

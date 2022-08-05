@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/vod")
 @Slf4j
-@CrossOrigin
+
 public class ApiVodController {
     @Autowired
     private VodService vodService;

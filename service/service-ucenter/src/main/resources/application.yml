@@ -1,0 +1,69 @@
+server:
+  port: 8160
+#    name:
+spring:
+  application:
+    name: guli-ucenter
+  datasource:
+    url: jdbc:mysql://192.168.6.100:3306/guli_ucenter?serverTimezone=GMT%2B8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.6.100:8848
+  redis:
+    host: 192.168.6.100
+    port: 6379
+#    password:
+#    database: 0
+    lettuce:
+      pool:
+        max-wait: -1  # redis连接不会中断 直到操作成功
+        max-idle: 8  # 空闲时最大维护的连接数
+        min-idle: 0  # 空闲时最小的连接数
+        max-active: 20 # 最大的连接数
+#  session:
+#    timeout:
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:com/atguigu/guli/service/ucenter/mapper/xml/*.xml
+  type-aliases-package: com.atguigu.guli.service.ucenter.entity
+
+logging:
+  level:
+    root: info
+
+ribbon:
+  MaxAutoRetries: 0 # 同一实例最大重试次数，不包括首次调用，默认0
+  MaxAutoRetriesNextServer: 1 # 重试其他实例的最大重试次数，不包括首次所选的server，默认1
+  ConnectTimeout: 5000 #连接建立的超时时长，默认1秒
+  ReadTimeout: 5000 #处理请求的超时时间，默认为1秒
+
+feign:
+  sentinel:
+    enabled: true   # 启用feign对sentinel的支持。本质就是sentinel使用动态代理 代理feign客户端
+
+wx:
+  open:
+    # 微信开放平台 appid
+    appId: wxed9954c01bb89b47
+    # 微信开放平台 appsecret
+    appSecret: a7482517235173ddb4083788de60b90e
+    # 微信开放平台 重定向url(localhost:8160 必须和wx平台配置的授权回调域一致)
+    redirectUri: http://localhost:8160/api/ucenter/wx/callback
+    # 获取二维码资源定位符
+    qrconnectUrl: https://open.weixin.qq.com/connect/qrconnect
+    # 获取access_token资源定位符
+    accessTokenUrl: https://api.weixin.qq.com/sns/oauth2/access_token
+    # 获取用户登录信息
+    userinfoUrl: https://api.weixin.qq.com/sns/userinfo
+

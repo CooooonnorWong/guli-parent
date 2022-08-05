@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/admin/vod")
 @Slf4j
-@CrossOrigin
+
 @Api(tags = "视频管理模块")
 public class AdminVodController {
     @Autowired

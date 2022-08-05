@@ -1,5 +1,6 @@
 package com.atguigu.guli.service.edu.service;
 
+import com.atguigu.guli.service.base.model.dto.CourseDto;
 import com.atguigu.guli.service.edu.entity.Course;
 import com.atguigu.guli.service.edu.entity.query.ApiCourseQuery;
 import com.atguigu.guli.service.edu.entity.vo.AdminCourseInfoVo;
@@ -82,4 +83,19 @@ public interface CourseService extends IService<Course> {
      * @return
      */
     ApiCourseDetailVo getCourseDetailVo(String id);
+
+    /**
+     * 查询首页前8个热门课程
+     *
+     * @return
+     */
+    List<Course> getHotCourses();
+
+    /**
+     * 根据courseId查询部分课程信息
+     *
+     * @param courseId
+     * @return
+     */
+    CourseDto getCourseDto(String courseId);
 }

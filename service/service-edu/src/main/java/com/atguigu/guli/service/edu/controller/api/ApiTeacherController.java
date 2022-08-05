@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping("/api/edu/teacher")
 @Api(tags = "讲师模块")
 @Slf4j
-@CrossOrigin
+
 public class ApiTeacherController {
     @Autowired
     private TeacherService teacherService;
@@ -44,6 +44,11 @@ public class ApiTeacherController {
         queryWrapper.eq(Teacher::getId, id)
                 .select(Teacher::getAvatar, Teacher::getName, Teacher::getLevel, Teacher::getCareer, Teacher::getIntro);
         return R.ok().data("item", teacherService.getOne(queryWrapper));
+    }
+
+    @GetMapping("/getHotTeachers")
+    public R getHotTeachers() {
+        return R.ok().data("items", teacherService.getHotTeachers());
     }
 
 }

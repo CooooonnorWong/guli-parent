@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/edu/video")
 @Api(tags = "视频管理模块")
 @Slf4j
-@CrossOrigin
+
 public class AdminVideoController {
 
     @Autowired

@@ -10,6 +10,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 讲师 服务实现类
@@ -43,4 +45,22 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         }
         this.page(page, queryWrapper);
     }
+
+    @Override
+    public List<Teacher> getHotTeachers() {
+        LambdaQueryWrapper<Teacher> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(Teacher::getId, Teacher::getName, Teacher::getAvatar)
+                .orderByDesc(Teacher::getSort)
+                .last("LIMIT 0,4");
+        return baseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public String getTeacherName(String teacherId) {
+        return baseMapper.selectOne(new LambdaQueryWrapper<Teacher>()
+                        .eq(Teacher::getId, teacherId)
+                        .select(Teacher::getName))
+                .getName();
+    }
+
 }

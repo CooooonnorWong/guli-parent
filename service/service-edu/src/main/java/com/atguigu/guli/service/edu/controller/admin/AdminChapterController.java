@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("/admin/edu/chapter")
 @Api(tags = "章节管理模块")
 @Slf4j
-@CrossOrigin
+
 public class AdminChapterController {
 
     @Autowired

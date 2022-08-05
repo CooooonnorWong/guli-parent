@@ -1,6 +1,7 @@
 package com.atguigu.guli.service.edu.controller.api;
 
 
+import com.atguigu.guli.service.base.model.dto.CourseDto;
 import com.atguigu.guli.service.base.result.R;
 import com.atguigu.guli.service.edu.entity.Course;
 import com.atguigu.guli.service.edu.entity.query.ApiCourseQuery;
@@ -11,7 +12,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -26,7 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/edu/course")
 @Slf4j
-@CrossOrigin
+
 @Api(tags = "课程模块")
 public class ApiCourseController {
     @Autowired
@@ -50,6 +54,17 @@ public class ApiCourseController {
     public R getCourseDetailVo(@PathVariable String id) {
         ApiCourseDetailVo courseDetailVo = courseService.getCourseDetailVo(id);
         return R.ok().data("item", courseDetailVo);
+    }
+
+    @GetMapping("/getHotCourses")
+    public R getHotCourses() {
+        return R.ok().data("items", courseService.getHotCourses());
+    }
+
+    @GetMapping("/getCourseDto/{courseId}")
+    public R getCourseDto(@PathVariable String courseId) {
+        CourseDto courseDto = courseService.getCourseDto(courseId);
+        return R.ok().data("item", courseDto);
     }
 }
 

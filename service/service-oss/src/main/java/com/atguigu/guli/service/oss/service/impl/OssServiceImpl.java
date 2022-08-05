@@ -22,6 +22,7 @@ import java.util.UUID;
  * @date 2022/7/22
  */
 @Service
+//@EnableConfigurationProperties(OssProperties.class)
 public class OssServiceImpl implements OssService {
     @Autowired
     private OssProperties ossProperties;

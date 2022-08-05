@@ -48,6 +48,7 @@ public class GuliException extends RuntimeException {
     public GuliException(ResultCodeEnum resultCodeEnum) {
         //将接受的msg设置给父类的message属性
         super(resultCodeEnum.getMessage());
+        this.msg = resultCodeEnum.getMessage();
         this.code = resultCodeEnum.getCode();
     }
 

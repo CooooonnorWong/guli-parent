@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/admin/edu/subject")
 @Api(tags = "课程管理模块")
 @Slf4j
-@CrossOrigin
+
 public class AdminSubjectController {
     @Autowired
     private SubjectService subjectService;

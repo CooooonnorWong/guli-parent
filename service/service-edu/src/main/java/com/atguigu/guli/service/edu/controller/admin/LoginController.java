@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 @Api(tags = "登录模块")
 @Slf4j
-@CrossOrigin
+
 public class LoginController {
 
     /**
