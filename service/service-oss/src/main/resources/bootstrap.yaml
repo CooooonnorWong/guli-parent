@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: guli-oss
+  cloud:
+    nacos:
+      config:
+        namespace: 5190192c-2e13-4723-9a3f-1c06f3a91abf
+        server-addr: 192.168.6.100:80
+        file-extension: yaml
+        extension-configs:
+          - dataId: aliyun-oss-config.yaml
+            refresh: true
+            group: DEFAULT_GROUP
+          - dataId: file-upload-config.yaml
+            refresh: true
+            group: DEFAULT_GROUP
+          - dataId: jackson-config.yaml
+            refresh: true
+            group: DEFAULT_GROUP
+          - dataId: nacos-discovery-config.yaml
+            refresh: true
+            group: DEFAULT_GROUP
+          - dataId: redis-config.yaml
+            refresh: true
+            group: DEFAULT_GROUP
+          - dataId: common-logging-level.yaml
+            refresh: true
+            group: DEFAULT_GROUP

@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: guli-edu
+  cloud:
+    nacos:
+      config:
+        namespace: 5190192c-2e13-4723-9a3f-1c06f3a91abf
+        server-addr: 192.168.6.100:80
+        file-extension: yaml
+        extension-configs:
+          - dataId: jdbc-edu.yaml
+            refresh: true
+            group: DEFAULT_GROUP
+          - dataId: jackson-config.yaml
+            refresh: true
+            group: DEFAULT_GROUP
+          - dataId: nacos-discovery-config.yaml
+            refresh: true
+            group: DEFAULT_GROUP
+          - dataId: redis-config.yaml
+            refresh: true
+            group: DEFAULT_GROUP
+          - dataId: ribbon-config.yaml
+            refresh: true
+            group: DEFAULT_GROUP
+          - dataId: feign-config.yaml
+            refresh: true
+            group: DEFAULT_GROUP
+          - dataId: rabbitmq-consumer-config.yaml
+            refresh: true
+            group: DEFAULT_GROUP
+          - dataId: common-logging-level.yaml
+            refresh: true
+            group: DEFAULT_GROUP

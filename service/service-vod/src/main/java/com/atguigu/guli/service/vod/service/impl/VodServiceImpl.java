@@ -7,12 +7,14 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
+import com.atguigu.guli.service.base.consts.ServiceConsts;
 import com.atguigu.guli.service.base.exception.GuliException;
 import com.atguigu.guli.service.base.result.ResultCodeEnum;
 import com.atguigu.guli.service.vod.config.VodProperties;
 import com.atguigu.guli.service.vod.service.VodService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +34,8 @@ public class VodServiceImpl implements VodService {
     private String regionId;
     @Autowired
     private VodProperties vodProperties;
+    @Autowired
+    private RedisTemplate<String,String> redisTemplate;
 
     @PostConstruct
     public void init() {
@@ -86,6 +90,7 @@ public class VodServiceImpl implements VodService {
             log.info("PlayAuth = " + response.getPlayAuth());
             //VideoMeta信息
             log.info("VideoMeta.Title = " + response.getVideoMeta().getTitle());
+            redisTemplate.opsForList().leftPush(ServiceConsts.DAILY_VIDEO_VIEW_ID, videoId);
             return response.getPlayAuth();
         } catch (Exception e) {
             log.error("ErrorMessage = " + e.getLocalizedMessage());

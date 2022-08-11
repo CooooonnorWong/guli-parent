@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author Connor
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @ComponentScan(basePackages = "com.atguigu.guli.service")
+@EnableScheduling
 public class ServiceVodApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServiceVodApplication.class, args);

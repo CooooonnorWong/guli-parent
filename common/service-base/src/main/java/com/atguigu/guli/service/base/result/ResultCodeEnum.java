@@ -99,6 +99,10 @@ public enum ResultCodeEnum {
      */
     PAY_UNIFIEDORDER_ERROR(false, 25001, "统一下单错误"),
     /**
+     * 微信支付签名错误
+     */
+    PAY_WX_SIGUNATURE_VALID_ERROR(false, 25501, "微信支付签名错误"),
+    /**
      * 查询支付结果错误
      */
     PAY_ORDERQUERY_ERROR(false, 25002, "查询支付结果错误"),

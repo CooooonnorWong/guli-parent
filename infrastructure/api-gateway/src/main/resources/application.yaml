@@ -5,43 +5,43 @@ spring:
     name: api-gateway
   profiles:
     active: dev
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 192.168.6.100
-    gateway:
-      routes:
-        - id: service-edu
-          uri: lb://guli-edu
-          predicates:
-            - Path=/*/edu/**,/user/**
-        - id: service-ucenter
-          uri: lb://guli-ucenter
-          predicates:
-            - Path=/*/ucenter/**
-        - id: service-oss
-          uri: lb://guli-oss
-          predicates:
-            - Path=/*/oss/**
-        - id: service-vod
-          uri: lb://guli-vod
-          predicates:
-            - Path=/*/vod/**
-        - id: service-cms
-          uri: lb://guli-cms
-          predicates:
-            - Path=/*/cms/**
-        - id: service-sms
-          uri: lb://guli-sms
-          predicates:
-            - Path=/*/sms/**
-        - id: service-trade
-          uri: lb://guli-trade
-          predicates:
-            - Path=/*/trade/**
-        - id: service-statistics
-          uri: lb://guli-statistics
-          predicates:
-            - Path=/*/statistics/**
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.6.100
+#    gateway:
+#      routes:
+#        - id: service-edu
+#          uri: lb://guli-edu
+#          predicates:
+#            - Path=/*/edu/**,/user/**
+#        - id: service-ucenter
+#          uri: lb://guli-ucenter
+#          predicates:
+#            - Path=/*/ucenter/**
+#        - id: service-oss
+#          uri: lb://guli-oss
+#          predicates:
+#            - Path=/*/oss/**
+#        - id: service-vod
+#          uri: lb://guli-vod
+#          predicates:
+#            - Path=/*/vod/**
+#        - id: service-cms
+#          uri: lb://guli-cms
+#          predicates:
+#            - Path=/*/cms/**
+#        - id: service-sms
+#          uri: lb://guli-sms
+#          predicates:
+#            - Path=/*/sms/**
+#        - id: service-trade
+#          uri: lb://guli-trade
+#          predicates:
+#            - Path=/*/trade/**
+#        - id: service-statistics
+#          uri: lb://guli-statistics
+#          predicates:
+#            - Path=/*/statistics/**
 
 

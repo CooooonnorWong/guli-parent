@@ -1,51 +1,50 @@
 server:
   port: 8140
-#    name:
 spring:
   application:
     name: guli-cms
-  datasource:
-    url: jdbc:mysql://192.168.6.100:3306/guli_cms?serverTimezone=GMT%2B8
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
   profiles:
     active: dev
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 192.168.6.100:8848
-  redis:
-    host: 192.168.6.100
-    port: 6379
-#    password:
-#    database: 0
-    lettuce:
-      pool:
-        max-wait: -1  # redis连接不会中断 直到操作成功
-        max-idle: 8  # 空闲时最大维护的连接数
-        min-idle: 0  # 空闲时最小的连接数
-        max-active: 20 # 最大的连接数
+#  datasource:
+#    url: jdbc:mysql://192.168.6.100:3306/guli_cms?serverTimezone=GMT%2B8
+#    username: root
+#    password: root
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    time-zone: GMT+8
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.6.100:8848
+#  redis:
+#    host: 192.168.6.100
+#    port: 6379
+##    password:
+##    database: 0
+#    lettuce:
+#      pool:
+#        max-wait: -1  # redis连接不会中断 直到操作成功
+#        max-idle: 8  # 空闲时最大维护的连接数
+#        min-idle: 0  # 空闲时最小的连接数
+#        max-active: 20 # 最大的连接数
 
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath*:com/atguigu/guli/service/cms/mapper/xml/*.xml
-  type-aliases-package: com.atguigu.guli.service.cms.entity
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  mapper-locations: classpath*:com/atguigu/guli/service/cms/mapper/xml/*.xml
+#  type-aliases-package: com.atguigu.guli.service.cms.entity
 
-logging:
-  level:
-    root: info
+#logging:
+#  level:
+#    root: info
+#
+#ribbon:
+#  MaxAutoRetries: 0 # 同一实例最大重试次数，不包括首次调用，默认0
+#  MaxAutoRetriesNextServer: 1 # 重试其他实例的最大重试次数，不包括首次所选的server，默认1
+#  ConnectTimeout: 5000 #连接建立的超时时长，默认1秒
+#  ReadTimeout: 5000 #处理请求的超时时间，默认为1秒
 
-ribbon:
-  MaxAutoRetries: 0 # 同一实例最大重试次数，不包括首次调用，默认0
-  MaxAutoRetriesNextServer: 1 # 重试其他实例的最大重试次数，不包括首次所选的server，默认1
-  ConnectTimeout: 5000 #连接建立的超时时长，默认1秒
-  ReadTimeout: 5000 #处理请求的超时时间，默认为1秒
-
-feign:
-  sentinel:
-    enabled: true   # 启用feign对sentinel的支持。本质就是sentinel使用动态代理 代理feign客户端
+#feign:
+#  sentinel:
+#    enabled: true   # 启用feign对sentinel的支持。本质就是sentinel使用动态代理 代理feign客户端

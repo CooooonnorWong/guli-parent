@@ -4,8 +4,10 @@ import com.atguigu.guli.service.base.helper.JwtHelper;
 import com.atguigu.guli.service.base.helper.JwtInfo;
 import com.atguigu.guli.service.base.model.dto.MemberDto;
 import com.atguigu.guli.service.base.result.R;
+import com.atguigu.guli.service.ucenter.entity.Member;
 import com.atguigu.guli.service.ucenter.entity.vo.ApiMemberVo;
 import com.atguigu.guli.service.ucenter.service.MemberService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -55,4 +57,10 @@ public class ApiMemberController {
         return R.ok().data("item", memberDto);
     }
 
+    @GetMapping("/getDailyRegisterMember/{date}")
+    public R getDailyRegisterMember(@PathVariable String date) {
+        long count = memberService.count(new QueryWrapper<Member>()
+                .eq("date(gmt_create)", date));
+        return R.ok().data("item", count);
+    }
 }

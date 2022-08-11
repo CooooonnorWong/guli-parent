@@ -43,10 +43,14 @@ import java.util.UUID;
 @Slf4j
 public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> implements MemberService {
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
     @Autowired
     private WeChatConfig weChatConfig;
 
+//    @PostConstruct
+//    public void init() {
+//        redisTemplate.expire(ServiceConsts.DAILY_LOGIN_ID, 1, TimeUnit.DAYS);
+//    }
     @Override
     public void register(ApiMemberVo apiMemberVo) {
         String code = apiMemberVo.getCode();
@@ -92,6 +96,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         if (!member.getPassword().equals(MD5.encrypt(ServiceConsts.ENCRYPT_SALT + MD5.encrypt(password)))) {
             throw new GuliException(ResultCodeEnum.LOGIN_PASSWORD_ERROR);
         }
+        redisTemplate.opsForSet().add(ServiceConsts.DAILY_LOGIN_ID, member.getId());
         return JwtHelper.createToken(new JwtInfo(member.getId(), member.getNickname(), member.getAvatar()));
     }
 
@@ -194,7 +199,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
                     this.updateById(member);
                 }
             }
-
+            redisTemplate.opsForSet().add(ServiceConsts.DAILY_LOGIN_ID, member.getId());
             //将wx用户的数据创建为jwt token 交给3000前端项目的首页回显
             JwtInfo jwtInfo = new JwtInfo();
             jwtInfo.setAvatar(member.getAvatar());

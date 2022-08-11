@@ -7,6 +7,7 @@ import com.atguigu.guli.service.edu.entity.Course;
 import com.atguigu.guli.service.edu.entity.vo.AdminCourseInfoVo;
 import com.atguigu.guli.service.edu.entity.vo.AdminCourseItemVo;
 import com.atguigu.guli.service.edu.service.CourseService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -92,6 +93,13 @@ public class AdminCourseController {
                 .set(Course::getPublishTime , new Date())
                 .eq(Course::getId , id));
         return R.ok();
+    }
+
+    @GetMapping("/getDailyPublishCount/{date}")
+    public R getDailyPublishCount(@PathVariable String date) {
+        long count = courseService.count(new QueryWrapper<Course>()
+                .eq("date(publish_time)", date));
+        return R.ok().data("item", count);
     }
 }
 

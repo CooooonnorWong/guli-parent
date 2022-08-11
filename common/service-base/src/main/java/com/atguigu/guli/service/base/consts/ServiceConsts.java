@@ -14,6 +14,9 @@ public interface ServiceConsts {
     String SMS_PREFIX_CODE = "sms:code:";
     String SMS_PREFIX_UNAVAILABLE_FOR_MINUTES = "sms:per:min:";
     String SMS_PREFIX_LIMITS_PER_DAY = "sms:per:day:";
+
+    String DAILY_LOGIN_ID = "daily:login:id";
+    String DAILY_VIDEO_VIEW_ID = "daily:video:view:id";
     /**
      * 盐
      */
@@ -26,4 +29,11 @@ public interface ServiceConsts {
      * 需要鉴权的路径
      */
     String AUTH_PATH = "/api/**/auth/**";
+
+    //微信支付
+
+    /**
+     * 统一下单地址
+     */
+    String UNIFIED_ORDER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 }
